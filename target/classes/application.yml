@@ -6,12 +6,44 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/hospital?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: root
-    password: Wutao123789357+
+    password: '788900000.'
+  rabbitmq:
+    addresses: 127.0.0.1
+    port: 15672
+    username: guest
+    password: guest
+    listener:
+      simple:
+        prefetch: 1
+    topic:
+      hospital_order_new_entity: hospital_order_new_entity
 
 mybatis-plus:
   mapper-locations: classpath*:mybatis/*.xml
   configuration:
     map-underscore-to-camel-case: true
 
+openai:
+  chatgtp:
+    model: gpt-3.5-turbo
+    api:
+      key: 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
+      url: https://api.openai.com/v1/chat/completions
+    max-completions: 1
+    temperature: 0
+    max_tokens: 100
+
+wenxin:
+  access-token: 24.949a0f1092f2f2806f71d61d350f8f34.2592000.1726040171.282335-105481505
+  api-key: IRfBVNnl5jzJ9uVaoYuSBdBf
+  secret-key: LRcLGbCMu2inJCMCmQqpM2ENcNbHNe5u
+  api-url: https://api.baidu.com/ernie/v3/chat
+#    model-qps:
+#       模型名 QPS数量
+#     -ERNIE-4.0-8K 10
+
+ai:
+  api:
+    key: sk-c7288deb7de14bf796690c6904053c4a
 
 
