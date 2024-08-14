@@ -13,5 +13,6 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 .addPathPatterns("/666")
                 .excludePathPatterns("/patient/pdf")
                 .excludePathPatterns("/**/login");
+
     }
 }
