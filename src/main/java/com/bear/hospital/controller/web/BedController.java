@@ -1,4 +1,4 @@
-package com.bear.hospital.controller;
+package com.bear.hospital.controller.web;
 
 import com.bear.hospital.pojo.Bed;
 import com.bear.hospital.service.BedService;
