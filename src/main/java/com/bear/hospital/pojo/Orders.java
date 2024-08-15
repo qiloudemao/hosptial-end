@@ -35,6 +35,11 @@ public class Orders {
     private Integer countGender;
     @JsonProperty("oAdvice")
     private String oAdvice;
+
+    @JsonProperty("oPrice")
+    @TableField(exist = true)
+    private Double oPrice;
+
     //多表查询用
     @TableField(exist = false)//声明不是数据库里面的字段
     private Doctor doctor;
@@ -53,7 +58,8 @@ public class Orders {
     public Orders() {
     }
 
-    public Orders(int oId, int pId, int dId, String oRecord, String oStart, String oEnd, Integer oState, String oDrug, String oCheck, Double oTotalPrice, Integer oPriceState, Integer countGender, String oAdvice, Doctor doctor, Patient patient, Integer countSection, String dName, String pName) {
+    public Orders(int oId, int pId, int dId, String oRecord, String oStart, String oEnd, Integer oState, String oDrug, String oCheck, Double oTotalPrice, Integer oPriceState, Integer countGender, String oAdvice, Doctor doctor, Patient patient, Integer countSection, String dName, String pName,Double oPrice) {
+        this.oPrice = oPrice;
         this.oId = oId;
         this.pId = pId;
         this.dId = dId;
@@ -218,6 +224,14 @@ public class Orders {
         this.pName = pName;
     }
 
+    public Double getoPrice() {
+        return oPrice;
+    }
+
+    public void setoPrice(Double oPrice) {
+        this.oPrice = oPrice;
+    }
+
     @Override
     public String toString() {
         return "Orders{" +
@@ -234,6 +248,7 @@ public class Orders {
                 ", oPriceState=" + oPriceState +
                 ", countGender=" + countGender +
                 ", oAdvice='" + oAdvice + '\'' +
+                ", oPrice=" + oPrice +
                 ", doctor=" + doctor +
                 ", patient=" + patient +
                 ", countSection=" + countSection +

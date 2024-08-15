@@ -9,6 +9,7 @@ import com.bear.hospital.pojo.Orders;
 import com.bear.hospital.service.OrderService;
 import com.bear.hospital.utils.RandomUtil;
 import com.bear.hospital.utils.TodayUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
@@ -19,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Service("OrderService")
+@Slf4j
 public class OrderServiceImpl implements OrderService {
 
     @Resource
@@ -55,6 +57,9 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public Boolean addOrder(Orders order, String arId){
+        
+
+        log.info("order ==== {}",order);
         //redis开始
         Jedis jedis = jedisPool.getResource();
         String time = order.getOStart().substring(11, 22);
@@ -94,6 +99,8 @@ public class OrderServiceImpl implements OrderService {
         jedis.close();
         //redis结束
         order.setOId(RandomUtil.randomOid(order.getPId()));
+        //设置当前的总费用为0
+        order.setoPrice(0.0);
         order.setOState(0);
         order.setOPriceState(0);
         order.setOStart(order.getOStart().substring(0,22));
@@ -121,6 +128,10 @@ public class OrderServiceImpl implements OrderService {
     public Boolean updateOrder(Orders orders) {
         orders.setOState(1);
         orders.setOEnd(TodayUtil.getToday());
+        //设置订单的总价格oPrice=oPrinceTotal 因为oPrinceTotal后续会清零
+        if (orders.getOTotalPrice() != null) {
+            orders.setoPrice(orders.getOTotalPrice());
+        }
         QueryWrapper<Orders> wrapper = new QueryWrapper<>();
         wrapper.eq("o_id", orders.getOId());
         this.orderMapper.update(orders, wrapper);

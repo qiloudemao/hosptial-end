@@ -1,17 +1,13 @@
-package com.bear.hospital.pojo;
+package com.bear.hospital.pojo.vo;
 
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@TableName("patient")
-public class Patient {
+public class PatientVo {
+
     @TableId(value = "p_id")
     @JsonProperty("pId")
     private int pId;
-    @JsonProperty("pPassword")
-    //@TableField(select = false)
-    private String pPassword;
     @JsonProperty("pName")
     private String pName;
     @JsonProperty("pGender")
@@ -28,16 +24,14 @@ public class Patient {
     private String pBirthday;
     @JsonProperty("pAge")
     private Integer pAge;
-
     @JsonProperty("pType")
     private String pType;
 
-    public Patient() {
+    public PatientVo() {
     }
 
-    public Patient(int pId, String pPassword, String pName, String pGender, String pCard, String pEmail, String pPhone, Integer pState, String pBirthday, Integer pAge,String pType) {
+    public PatientVo(int pId, String pName, String pGender, String pCard, String pEmail, String pPhone, Integer pState, String pBirthday, Integer pAge, String pType) {
         this.pId = pId;
-        this.pPassword = pPassword;
         this.pName = pName;
         this.pGender = pGender;
         this.pCard = pCard;
@@ -49,83 +43,75 @@ public class Patient {
         this.pType = pType;
     }
 
-    public int getPId() {
+    public int getpId() {
         return pId;
     }
 
-    public void setPId(int pId) {
+    public void setpId(int pId) {
         this.pId = pId;
     }
 
-    public String getPPassword() {
-        return pPassword;
-    }
-
-    public void setPPassword(String pPassword) {
-        this.pPassword = pPassword;
-    }
-
-    public String getPName() {
+    public String getpName() {
         return pName;
     }
 
-    public void setPName(String pName) {
+    public void setpName(String pName) {
         this.pName = pName;
     }
 
-    public String getPGender() {
+    public String getpGender() {
         return pGender;
     }
 
-    public void setPGender(String pGender) {
+    public void setpGender(String pGender) {
         this.pGender = pGender;
     }
 
-    public String getPCard() {
+    public String getpCard() {
         return pCard;
     }
 
-    public void setPCard(String pCard) {
+    public void setpCard(String pCard) {
         this.pCard = pCard;
     }
 
-    public String getPEmail() {
+    public String getpEmail() {
         return pEmail;
     }
 
-    public void setPEmail(String pEmail) {
+    public void setpEmail(String pEmail) {
         this.pEmail = pEmail;
     }
 
-    public String getPPhone() {
+    public String getpPhone() {
         return pPhone;
     }
 
-    public void setPPhone(String pPhone) {
+    public void setpPhone(String pPhone) {
         this.pPhone = pPhone;
     }
 
-    public Integer getPState() {
+    public Integer getpState() {
         return pState;
     }
 
-    public void setPState(Integer pState) {
+    public void setpState(Integer pState) {
         this.pState = pState;
     }
 
-    public String getPBirthday() {
+    public String getpBirthday() {
         return pBirthday;
     }
 
-    public void setPBirthday(String pBirthday) {
+    public void setpBirthday(String pBirthday) {
         this.pBirthday = pBirthday;
     }
 
-    public Integer getPAge() {
+    public Integer getpAge() {
         return pAge;
     }
 
-    public void setPAge(Integer pAge) {
+    public void setpAge(Integer pAge) {
         this.pAge = pAge;
     }
 
@@ -139,9 +125,8 @@ public class Patient {
 
     @Override
     public String toString() {
-        return "Patient{" +
+        return "PatientVo{" +
                 "pId=" + pId +
-                ", pPassword='" + pPassword + '\'' +
                 ", pName='" + pName + '\'' +
                 ", pGender='" + pGender + '\'' +
                 ", pCard='" + pCard + '\'' +
