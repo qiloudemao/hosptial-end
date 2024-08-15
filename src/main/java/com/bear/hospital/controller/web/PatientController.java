@@ -1,4 +1,4 @@
-package com.bear.hospital.controller;
+package com.bear.hospital.controller.web;
 
 import com.bear.hospital.mapper.OrderMapper;
 import com.bear.hospital.pojo.Orders;
