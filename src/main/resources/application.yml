@@ -23,24 +23,6 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
 
-openai:
-  chatgtp:
-    model: gpt-3.5-turbo
-    api:
-      url: https://api.openai.com/v1/chat/completions
-    max-completions: 1
-    temperature: 0
-    max_tokens: 100
-
-wenxin:
-  access-token:
-  api-key:
-  secret-key:
-  api-url: https://api.baidu.com/ernie/v3/chat
-#    model-qps:
-#       模型名 QPS数量
-#     -ERNIE-4.0-8K 10
-
 ai:
   api:
     key: sk-c7288deb7de14bf796690c6904053c4a
