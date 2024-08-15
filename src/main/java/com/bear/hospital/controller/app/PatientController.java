@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController("userController")
-@RequestMapping("user")
+@RequestMapping("/user")
 public class PatientController {
 
 
@@ -23,14 +23,14 @@ public class PatientController {
     /**
      * 登录数据验证
      */
-    @PostMapping(value = "login")
-    public ResponseData login(@RequestParam(value = "pId") int pId, @RequestParam(value = "pPassword") String pPassword) {
+    @PostMapping( "/login")
+    public ResponseData login(@RequestParam int pId, @RequestParam String pPassword) {
         Patient patient = this.patientService.login(pId, pPassword);
         if (patient != null) {
             Map<String,String> map = new HashMap<>();
-            map.put("pName", patient.getPName());
-            map.put("pId", String.valueOf(patient.getPId()));
-            map.put("pCard", patient.getPCard());
+//            map.put("pName", patient.getPName());
+//            map.put("pId", String.valueOf(patient.getPId()));
+//            map.put("pCard", patient.getPCard());
             String token = JwtUtil.getToken(map);
             map.put("token", token);
             //response.setHeader("token", token);
