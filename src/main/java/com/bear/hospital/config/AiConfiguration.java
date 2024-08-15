@@ -1,4 +1,5 @@
-package com.bear.hospital.chatgpt.openaiconfig;
+package com.bear.hospital.config;
+
 
 import com.alibaba.dashscope.aigc.generation.Generation;
 import org.springframework.context.annotation.Bean;
