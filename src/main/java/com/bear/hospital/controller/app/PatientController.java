@@ -28,9 +28,10 @@ public class PatientController {
         Patient patient = this.patientService.login(pId, pPassword);
         if (patient != null) {
             Map<String,String> map = new HashMap<>();
-//            map.put("pName", patient.getPName());
-//            map.put("pId", String.valueOf(patient.getPId()));
+            map.put("pName", patient.getPName());
+            map.put("pId", String.valueOf(patient.getPId()));
 //            map.put("pCard", patient.getPCard());
+
             String token = JwtUtil.getToken(map);
             map.put("token", token);
             //response.setHeader("token", token);
