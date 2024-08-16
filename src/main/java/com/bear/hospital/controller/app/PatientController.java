@@ -35,7 +35,7 @@ public class PatientController {
      * 登录数据验证
      */
     @PostMapping( "/login")
-    public ResponseData login(@RequestParam int pId, @RequestParam String pPassword) {
+    public ResponseData login(int pId, String pPassword) {
         Patient patient = this.patientService.login(pId, pPassword);
         if (patient != null) {
             Map<String,String> map = new HashMap<>();
@@ -65,7 +65,7 @@ public class PatientController {
      * 根据科室查询所有医生信息
      */
     @GetMapping("findDoctorBySection")
-    public ResponseData findDoctorBySection(@RequestParam(value = "dSection") String dSection){
+    public ResponseData findDoctorBySection(String dSection){
         return ResponseData.success("根据科室查询所有医生信息成功", this.doctorService.findDoctorBySection(dSection));
     }
 

@@ -36,7 +36,7 @@ public interface DoctorService {
     /**
      * 根据科室查询所有医生信息
      */
-     HashMap<String, Object> findDoctorBySection(String dSection);
+    List<Doctor> findDoctorBySection(String dSection);
     /**
      * 分页根据科室查询所有医生信息
      */

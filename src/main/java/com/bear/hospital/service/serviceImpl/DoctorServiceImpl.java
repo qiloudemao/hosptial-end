@@ -127,14 +127,14 @@ public class DoctorServiceImpl implements DoctorService {
      * 根据科室查询所有医生信息
      */
     @Override
-    public HashMap<String, Object> findDoctorBySection(String dSection){
+    public List<Doctor> findDoctorBySection(String dSection){
 //        HashMap<String, Object> hashMap = new HashMap<>();
 //        QueryWrapper<Doctor> queryWrapper = new QueryWrapper<>();
 //        queryWrapper.eq("d_section", dSection).eq("d_state", 1);
 //        List<Doctor> doctors = this.doctorMapper.selectList(queryWrapper);
         HashMap<String, Object> map = new HashMap<>();
-        map.put("doctors", this.doctorMapper.findDoctorBySection(dSection));
-        return map;
+//        map.put("doctors", this.);
+        return doctorMapper.findDoctorBySection(dSection);
 
     }
     /**
