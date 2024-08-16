@@ -2,6 +2,8 @@ package com.bear.hospital.controller.app;
 
 
 import cn.hutool.core.bean.BeanUtil;
+import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.bear.hospital.pojo.Orders;
 import com.bear.hospital.pojo.Patient;
 import com.bear.hospital.pojo.vo.PatientVo;
@@ -53,6 +55,18 @@ public class PatientController {
     }
 
     /**
+     *
+     * @param token 登录token
+     * @return 用户id
+     */
+    @GetMapping("getId")
+    public ResponseData getIdByToken(String token) {
+        DecodedJWT verify = JwtUtil.verify(token);
+        String pId = verify.getClaim("pId").asString();
+        return ResponseData.success("获取用户id成功", pId);
+    }
+
+    /**
      * 根据患者id查询患者信息
      */
     @GetMapping("findPatientById")
@@ -87,5 +101,29 @@ public class PatientController {
     public ResponseData findOrderByPid(@RequestParam(value = "pId") int pId){
         return ResponseData.success("返回挂号信息成功", this.orderService.findOrderByPid(pId)) ;
     }
+
+    /**
+     * 查询用户未缴费信息
+     * @param pId
+     * @return
+     */
+    @GetMapping("findUnpay")
+    public ResponseData findUnpay(@RequestParam Integer pId) {
+        return orderService.findUpay(pId);
+    }
+
+    /**
+     * 用户进行缴费
+     * @param oId
+     * @return boolean
+     */
+    @GetMapping("pay")
+    public ResponseData pay(Integer oId) {
+        if (this.orderService.updatePrice(oId))
+            return ResponseData.success("根据id设置缴费状态成功");
+        return ResponseData.success("根据id设置缴费状态失败");
+    }
+
+
 
 }
