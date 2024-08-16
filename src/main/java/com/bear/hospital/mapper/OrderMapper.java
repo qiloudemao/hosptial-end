@@ -40,4 +40,9 @@ public interface OrderMapper extends BaseMapper<Orders> {
      */
     List<Orders> findOrderByPid(int pId);
 
+    /**
+     * 查询未支付的订单
+     * @param pId
+     */
+    List<Orders> findUnpay(Integer pId);
 }

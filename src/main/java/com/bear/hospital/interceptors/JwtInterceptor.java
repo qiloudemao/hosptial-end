@@ -3,6 +3,8 @@ package com.bear.hospital.interceptors;
 import com.auth0.jwt.exceptions.AlgorithmMismatchException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.bear.hospital.utils.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -18,8 +20,9 @@ public class JwtInterceptor implements HandlerInterceptor {
         Map<String,Object> map = new HashMap<>();
         //获取请求头中的令牌
         String token = request.getHeader("token");
+
         try {
-            JwtUtil.verify(token);//验证令牌
+            DecodedJWT verify = JwtUtil.verify(token);//验证令牌
             return true;
         }catch (SignatureVerificationException e){
             e.printStackTrace();

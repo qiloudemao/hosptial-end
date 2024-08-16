@@ -1,13 +1,16 @@
 package com.bear.hospital.service.serviceImpl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bear.hospital.mapper.OrderMapper;
 import com.bear.hospital.pojo.Orders;
+import com.bear.hospital.pojo.vo.OrdersVo;
 import com.bear.hospital.service.OrderService;
 import com.bear.hospital.utils.RandomUtil;
+import com.bear.hospital.utils.ResponseData;
 import com.bear.hospital.utils.TodayUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,8 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -265,5 +270,38 @@ public class OrderServiceImpl implements OrderService {
         String startTime = TodayUtil.getPastDate(20);
         String endTime = TodayUtil.getTodayYmd();
         return this.orderMapper.orderSection(startTime, endTime);
+    }
+
+    /**
+     * 查询未支付订单
+     * @param pId
+     * @return
+     */
+    @Override
+    public ResponseData findUpay(Integer pId) {
+        //1.查询出用户的订单
+        List<Orders> orders = orderMapper.findUnpay(pId);
+        //2.判断订单是否为空
+        if (orders.isEmpty()) {
+            //3.空说明无需缴费,返回空集合
+            return ResponseData.success("无需缴费", Collections.emptyList());
+        }
+
+        List<OrdersVo> ordersVos = new ArrayList<>();
+        //4.不空则判断总价钱是否为null,如果挂号没有检查则不会产生费用
+        orders.forEach(
+                order->{
+                    if (order.getOTotalPrice() != null && order.getOTotalPrice() != 0) {
+                        ordersVos.add(BeanUtil.copyProperties(order,OrdersVo.class));
+                    }
+                }
+        );
+
+        //判断ordersVos是否为null
+        if (ordersVos.isEmpty()) {
+            return ResponseData.success("无需缴费", Collections.emptyList());
+        }
+
+        return ResponseData.success("查询成功",ordersVos);
     }
 }
