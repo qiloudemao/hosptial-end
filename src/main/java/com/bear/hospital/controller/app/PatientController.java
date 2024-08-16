@@ -73,7 +73,7 @@ public class PatientController {
      * 增加挂号信息
      */
     @GetMapping("addOrder")
-    public ResponseData addOrder(Orders order, String arId){
+    public ResponseData addOrder(Orders order,String arId){
         System.out.println(arId);
         if (this.orderService.addOrder(order, arId))
             return ResponseData.success("插入挂号信息成功");
