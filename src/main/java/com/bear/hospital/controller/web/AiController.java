@@ -1,4 +1,4 @@
-package com.bear.hospital.controller;
+package com.bear.hospital.controller.web;
 
 import com.alibaba.dashscope.aigc.generation.Generation;
 import com.alibaba.dashscope.aigc.generation.GenerationParam;
