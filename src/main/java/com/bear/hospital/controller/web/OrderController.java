@@ -120,4 +120,10 @@ public class OrderController {
         return ResponseData.success("统计过去20天挂号科室人数成功", this.orderService.orderSection());
     }
 
+
+    @GetMapping("orderWaitPeople")
+    public ResponseData orderWaitPeople(int dId){
+        return ResponseData.success("查询未就诊人数",this.orderService.orderWaitPeople(dId));
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.bear.hospital.service;
 
 import com.bear.hospital.pojo.Orders;
+import com.bear.hospital.pojo.vo.PayVO;
 import com.bear.hospital.utils.ResponseData;
 
 import java.util.HashMap;
@@ -72,10 +73,9 @@ public interface OrderService {
      */
     List<String> orderSection();
 
-    /**
-     * 查询用户没有支付的费用
-     * @param pId
-     * @return
-     */
     ResponseData findUpay(Integer pId);
+
+    PayVO findPaymentInfo(Integer pId);
+
+    int orderWaitPeople(int dId);
 }

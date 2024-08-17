@@ -29,8 +29,7 @@ public class BedController {
      */
     @RequestMapping("updateBed")
     public ResponseData updateBed(Bed bed) {
-        if (this.bedService.updateBed(bed))
-        return ResponseData.success("增加床位成功！");
+        if (this.bedService.updateBed(bed)) return ResponseData.success("增加床位成功！");
         return ResponseData.fail("增加床位失败！");
     }
     /**

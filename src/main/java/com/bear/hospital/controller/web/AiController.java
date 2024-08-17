@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.codec.ServerSentEvent;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Schedulers;
 
@@ -41,10 +38,13 @@ public class AiController {
         this.generation = generation;
     }
 
-    @PostMapping("/send")
-    public Flux<ServerSentEvent<String>> aiTalk(@RequestBody String question, HttpServletResponse response) throws NoApiKeyException, InputRequiredException {
+    @GetMapping("/send")
+    public Flux<ServerSentEvent<String>> aiTalk(@RequestParam String question, HttpServletResponse response) throws NoApiKeyException, InputRequiredException {
+
+        String distriction="你现在是一个导诊，请直接用文字回答我接下来的问题："+question;
+
         // 构建消息对象
-        Message message = Message.builder().role(Role.USER.getValue()).content(question).build();
+        Message message = Message.builder().role(Role.USER.getValue()).content(distriction).build();
 
         // 构建通义千问参数对象
         GenerationParam param = GenerationParam.builder()

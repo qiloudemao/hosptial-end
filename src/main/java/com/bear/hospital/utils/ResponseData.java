@@ -72,4 +72,8 @@ public class  ResponseData implements Serializable {
 
     }
 
+    public static ResponseData success(String msg,int status,Object data){
+        return new ResponseData(200,msg,data);
+    }
+
 }

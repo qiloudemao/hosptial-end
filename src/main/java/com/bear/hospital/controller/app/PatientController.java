@@ -107,10 +107,10 @@ public class PatientController {
      * @param pId
      * @return
      */
-    @GetMapping("findUnpay")
-    public ResponseData findUnpay(@RequestParam Integer pId) {
-        return orderService.findUpay(pId);
-    }
+//    @GetMapping("findUnpay")
+//    public ResponseData findUnpay(@RequestParam Integer pId) {
+//        return orderService.findUpay(pId);
+//    }
 
     /**
      * 用户进行缴费
@@ -124,5 +124,10 @@ public class PatientController {
         return ResponseData.success("根据id设置缴费状态失败");
     }
 
+    @GetMapping("/findUnpay")
+    public ResponseData findPaymentInfo(@RequestParam(name = "pId") int pId){
+        int state=this.orderService.updatePrice(pId)==true? 200:400;
+        return ResponseData.success("缴费成功",state,this.orderService.findPaymentInfo(pId));
+    }
 
 }

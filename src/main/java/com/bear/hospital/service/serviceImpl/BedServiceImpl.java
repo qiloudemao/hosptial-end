@@ -104,6 +104,7 @@ public class BedServiceImpl implements BedService {
         this.bedMapper.deleteById(bId);
         return true;
     }
+
     /**
      * 清空床位信息
      */

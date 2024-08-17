@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bear.hospital.mapper.OrderMapper;
 import com.bear.hospital.pojo.Orders;
 import com.bear.hospital.pojo.vo.OrdersVo;
+import com.bear.hospital.pojo.vo.PayVO;
 import com.bear.hospital.service.OrderService;
 import com.bear.hospital.utils.RandomUtil;
 import com.bear.hospital.utils.ResponseData;
@@ -19,6 +20,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 import javax.annotation.Resource;
+import javax.management.QueryEval;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -304,4 +306,38 @@ public class OrderServiceImpl implements OrderService {
 
         return ResponseData.success("查询成功",ordersVos);
     }
+
+    @Override
+    public PayVO findPaymentInfo(Integer pId) {
+        QueryWrapper<Orders> wrapper = new QueryWrapper<Orders>().eq("p_id", pId);
+        List<Orders> orders = orderMapper.selectList(wrapper);
+        if(orders==null){
+            return null;
+        }
+
+
+        String itemsAndPrice="";
+        String drugsAndPrice="";
+        double totolPrice=0.0;
+        for (Orders order : orders) {
+            itemsAndPrice=itemsAndPrice+order.getOCheck();
+            drugsAndPrice=drugsAndPrice+order.getODrug();
+            totolPrice=totolPrice+order.getOTotalPrice();
+        }
+
+        return PayVO.builder()
+                .itemsAndPrice(itemsAndPrice)
+                .drugsAndPrice(drugsAndPrice)
+                .totolPrice(totolPrice)
+                .build();
+    }
+
+    @Override
+    public int orderWaitPeople(int dId) {
+        String oStart = TodayUtil.getTodayYmd();
+        QueryWrapper<Orders> wrapper = new QueryWrapper<Orders>().eq("o_state", 0).eq("d_id",dId).likeRight("o_start",oStart);
+        List<Orders> orders = orderMapper.selectList(wrapper);
+        return orders.size();
+    }
+
 }

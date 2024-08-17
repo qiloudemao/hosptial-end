@@ -4,7 +4,7 @@
 
 <mapper namespace="com.bear.hospital.mapper.PatientMapper">
     <select id="patientAge" resultType="Integer">
-        select count(p_id) as agePeople from patient  where
+        select count(p_id) as agePeople from patient where
             p_age BETWEEN #{startAge} AND #{endAge}
     </select>
 

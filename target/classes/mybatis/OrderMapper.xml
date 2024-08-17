@@ -117,7 +117,7 @@
         ORDER BY o.o_start
     </select>
     <select id="findOrderByPid" resultMap="orderPatientDoctorMap">
-        SELECT o.o_id,o.d_id,d.d_name as dName,o.p_id,p.p_name as pName,o.o_start,o.o_end,o.o_total_price,o.o_price_state,o.o_state
+        SELECT o.o_id,o.d_id,d.d_name as dName,o.p_id,p.p_name as pName,o.o_start,o.o_end,o.o_total_price,o.o_price_state,o.o_state,o_price
         from orders o JOIN doctor d JOIN patient p
         on o.p_id=#{pId}
         and o.d_id=d.d_id
@@ -125,6 +125,14 @@
         ORDER BY o.o_end DESC
     </select>
 
+    <select id="findUnpay" parameterType="java.lang.Integer" resultType="com.bear.hospital.pojo.Orders">
+        select * from orders
+        <where>
+            p_id = #{pId}
+        and o_price_state = 0
+        </where>
+
+    </select>
 
 
 </mapper>

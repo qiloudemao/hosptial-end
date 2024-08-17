@@ -68,8 +68,7 @@ public class PatientController {
     @ResponseBody
     public ResponseData addOrder(Orders order, String arId){
         System.out.println(arId);
-        if (this.orderService.addOrder(order, arId))
-        return ResponseData.success("插入挂号信息成功");
+        if (this.orderService.addOrder(order, arId)) return ResponseData.success("插入挂号信息成功");
         return ResponseData.fail("插入挂号信息失败");
     }
     /**
